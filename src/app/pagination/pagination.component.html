@@ -1,0 +1,28 @@
+<nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+  <ul class="pagination-list">
+    <li *ngIf=!isFirstPage()>
+      <a class="pagination-link" (click)="selectPage(1, $event)">&laquo;</a>
+    </li>
+    <li *ngIf=!isFirstPage()>
+      <a class="pagination-link" (click)="selectPage(currentPage - 1, $event)">&lsaquo;</a>
+    </li>
+    <li>
+      <a class="pagination-ellipsis" (click)="cancelEvent($event)" *ngIf="(currentPage - range) > 1">...</a>
+    </li>
+    <li *ngFor="let page of pages | async">
+      <a (click)="selectPage(page)" class="pagination-link" href="javascript:void(0)" [class.is-current]="page==currentPage">
+        {{page}}
+      </a>
+    </li>
+    <li>
+      <a class="pagination-ellipsis" (click)="cancelEvent($event)" *ngIf="(currentPage + range) < totalPages">...</a>
+    </li>
+
+    <li *ngIf=!isLastPage()>
+      <a class="pagination-link" (click)="selectPage(currentPage + 1, $event)">&rsaquo;</a>
+    </li>
+    <li *ngIf=!isLastPage()>
+      <a class="pagination-link" (click)="selectPage(totalPages, $event)">&raquo;</a>
+    </li>
+  </ul>
+</nav>
