@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SearchService } from '../search.service';
+import { SearchService } from '../../search.service';
 import { Observable } from 'rxjs';
 import 'rxjs/observable/merge';
 import 'rxjs/add/operator/merge';
@@ -10,7 +10,7 @@ import 'rxjs/add/operator/merge';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements OnInit {
+export class GameListPaginationComponent implements OnInit {
 
   private filters;
   currentPage: number;
