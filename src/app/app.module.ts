@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+
+import { Observable, Subject } from 'rxjs';
 
 import { AppComponent } from './app.component';
 
@@ -9,7 +11,9 @@ import { GameListPaginationComponent } from './game-list/pagination/pagination.c
 import { GameListItemComponent } from "./game-list/game-item/game-item.component";
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { HeaderComponent } from './header/header.component';
+import { FilterComponent } from './game-list/filter/filter.component';
 import { SearchInputComponent } from './header/search-input/search-input.component';
+import { FormsModule } from '@angular/forms';
 
 import { SearchService } from './search.service';
 
@@ -22,14 +26,15 @@ import { SearchService } from './search.service';
     GameListItemComponent,
     GameDetailComponent,
     HeaderComponent,
-    SearchInputComponent
+    SearchInputComponent,
+    FilterComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [
-    SearchService
-  ],
-  bootstrap: [AppComponent]
+  providers: [ SearchService, Subject ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

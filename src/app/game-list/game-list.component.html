@@ -1,40 +1,8 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col mb-3">
-      <game-item></game-item>
+    <div class="col-12 mb-3">
+      <app-filter></app-filter>
     </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
-    <div class="col mb-3">
-      <game-item></game-item>
-    </div>
+      <game-item [game]="game" *ngFor="let game of service.games | async"></game-item>
   </div>
 </div>

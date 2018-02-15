@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/debounceTime';
@@ -15,8 +15,8 @@ export class SearchService {
 
   private baseUrl: string = 'https://api.twitch.tv/kraken/games/top';
 
-  private products$ = new BehaviorSubject<Array<any>>([]);
-  products = this.products$.asObservable();
+  private games$ = new BehaviorSubject<Array<any>>([]);
+  games = this.games$.asObservable();
 
   private total$ = new BehaviorSubject<number>(0);
   total = this.total$.asObservable();
@@ -24,13 +24,13 @@ export class SearchService {
   private filters$ = new BehaviorSubject<Object>({
     term: "",
     offset: 0,
-    take: 10
+    limit: 10
   });
   filters = this.filters$.asObservable();
 
   updateFilters(filters:Object) {
     if(!filters['offset']) filters['offset'] = 0;
-    if(!filters['take']) filters['take'] = 10;
+    if(!filters['limit']) filters['limit'] = 10;
     if(!filters['term']) filters['term'] = '';
     this.filters$.next(filters);
   }
@@ -39,12 +39,21 @@ export class SearchService {
     this.filters.debounceTime(400)
     .distinctUntilChanged()
     .subscribe(filter => {
-      this.http.get(this.baseUrl + filter['take'] + '/' + filter['offset'] + '?s=' + filter['term'])
-        .subscribe( response => {
-          this.products$.next(response['products']);
-          this.total$.next(response['total']);
-        })
+
+      let params = new HttpParams();
+      params.append('limit', filter['limit']);
+      params.append('offset', filter['offset']);
+
+      this.http.get(this.baseUrl, {
+        'headers': { 'Client-ID': environment.twitchClientId },
+        'params': params
+      }).subscribe( res => {
+          console.log(res)
+          this.games$.next(res['top']);
+          this.total$.next(res['_total']);
+        },
+        msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
+      );
     });
   }
-
 }

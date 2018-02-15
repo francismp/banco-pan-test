@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameListPaginationComponent } from './pagination/pagination.component';
+import { SearchService } from '../search.service';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'game-list',
@@ -8,7 +10,7 @@ import { GameListPaginationComponent } from './pagination/pagination.component';
 })
 export class GameListComponent implements OnInit {
 
-  constructor() { }
+  constructor(public service:SearchService) { }
 
   ngOnInit() {
   }
