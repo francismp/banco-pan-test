@@ -36,34 +36,16 @@ export class SearchService {
     this.filters$.next(filters);
   }
 
-  search(term: string): Observable<Game[]> {
-    let params = new HttpParams();
-    params.append('limit', filter['limit']);
-    params.append('offset', filter['offset']);
-
-    return this.http.get(this.baseUrl, {
-        'headers': { 'Client-ID': environment.twitchClientId },
-        'params': params
-      }).map( res => {
-          console.log(res['top'])
-          return res['top'].map(item => new Game(item))
-        },
-        msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
-      );
-  }
-
   getTopGames(limit: number, offset: number): Observable<object> {
     let params = new HttpParams();
-    params.append('limit', filter['limit']);
-    params.append('offset', filter['offset']);
+    params.append('limit', limit.toString());
+    params.append('offset', offset.toString());
 
     return this.http.get(this.baseUrl, {
         'headers': { 'Client-ID': environment.twitchClientId },
         'params': params
-      }).map( res => {
-        console.log(res['top'])
-        return res['top']
-      },
+      }).map(
+        res => res['top'],
         msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
       );
   }
