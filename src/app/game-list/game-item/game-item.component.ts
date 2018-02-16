@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Game } from "../../models/game";
 
 @Component({
   selector: 'game-item',
@@ -7,11 +8,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class GameListItemComponent implements OnInit {
 
-  @Input() game: any;
+  @Input() game: object;
 
-  constructor() { console.log(this.game) }
+  constructor() { }
 
   ngOnInit() {
+    console.log(this.game)
   }
 
 }

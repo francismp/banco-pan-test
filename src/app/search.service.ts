@@ -9,6 +9,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
 import { filter } from 'rxjs/operators/filter';
+import { Game } from "./models/game";
 
 @Injectable()
 export class SearchService {
@@ -35,25 +36,37 @@ export class SearchService {
     this.filters$.next(filters);
   }
 
-  constructor(private http: HttpClient) {
-    this.filters.debounceTime(400)
-    .distinctUntilChanged()
-    .subscribe(filter => {
+  search(term: string): Observable<Game[]> {
+    let params = new HttpParams();
+    params.append('limit', filter['limit']);
+    params.append('offset', filter['offset']);
 
-      let params = new HttpParams();
-      params.append('limit', filter['limit']);
-      params.append('offset', filter['offset']);
-
-      this.http.get(this.baseUrl, {
+    return this.http.get(this.baseUrl, {
         'headers': { 'Client-ID': environment.twitchClientId },
         'params': params
-      }).subscribe( res => {
-          console.log(res)
-          this.games$.next(res['top']);
-          this.total$.next(res['_total']);
+      }).map( res => {
+          console.log(res['top'])
+          return res['top'].map(item => new Game(item))
         },
         msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
       );
-    });
   }
+
+  getTopGames(limit: number, offset: number): Observable<object> {
+    let params = new HttpParams();
+    params.append('limit', filter['limit']);
+    params.append('offset', filter['offset']);
+
+    return this.http.get(this.baseUrl, {
+        'headers': { 'Client-ID': environment.twitchClientId },
+        'params': params
+      }).map( res => {
+        console.log(res['top'])
+        return res['top']
+      },
+        msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
+      );
+  }
+
+  constructor(private http: HttpClient) {}
 }

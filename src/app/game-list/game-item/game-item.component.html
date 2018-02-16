@@ -1,10 +1,10 @@
 <div class="col mb-3">
   <div class="card mx-auto" style="width: 18rem;">
-    <img class="card-img-top" src="{{game.box.large}}" alt="Card image cap">
+    <img class="card-img-top" src="{{game.game.box.large}}" alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title">{{game}}</h5>
-      <p class="card-text">23123 Viewers</p>
-      <a href="/game/joguinho-legal" class="btn btn-primary">Details</a>
+      <h5 class="card-title">{{game.game.localized_name}}</h5>
+      <p class="card-text">{{game.viewers}} Viewers</p>
+      <a href="/game/{{game.game._id}}" class="btn btn-primary">Details</a>
     </div>
   </div>
 </div>

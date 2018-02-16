@@ -3,6 +3,6 @@
     <div class="col-12 mb-3">
       <app-filter></app-filter>
     </div>
-      <game-item [game]="game" *ngFor="let game of service.games | async"></game-item>
+    <game-item class="mx-auto" [game]="game" *ngFor="let game of games | async"></game-item>
   </div>
 </div>
