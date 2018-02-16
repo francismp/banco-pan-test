@@ -1,11 +1,11 @@
 <div class="col mb-3">
   <div class="card mx-auto" style="width: 18rem;">
-      <a href="/game/{{game.id}}">
+      <a (click)="selectGame()">
         <img class="card-img-top" src="{{game.image}}" alt="Card image cap">
       </a>
     <div class="card-body">
       <h5 class="card-title">{{game.name}}</h5>
-      <a href="/game/{{game.id}}" class="btn btn-primary">Details</a>
+      <a (click)="selectGame()" class="btn btn-primary">Details</a>
     </div>
   </div>
 </div>

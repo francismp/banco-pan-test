@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GameListPaginationComponent } from './pagination/pagination.component';
 import { SearchService } from '../search.service';
-import { Observable, Subject } from 'rxjs';
-import { Game } from "../models/game";
-import { FormControl } from "@angular/forms"
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'game-list',
@@ -16,7 +14,10 @@ export class GameListComponent implements OnInit {
   private limit: number = 100;
   private games: Observable<object>;
 
-  constructor(public service:SearchService) { }
+  constructor(
+    public service:SearchService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.games = this.service.getTopGames(this.offset, this.limit)
