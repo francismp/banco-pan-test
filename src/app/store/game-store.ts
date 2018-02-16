@@ -11,4 +11,8 @@ export class GameStore {
   getGame(): Observable<any> {
     return this.game.asObservable()
   }
+
+  setGame(game) {
+    this.game.next(game)
+  }
 }

@@ -14,9 +14,6 @@ export class GameDetailComponent implements OnInit {
   constructor(private store: GameStore) {}
   
   ngOnInit() {
-    this.store.getGame().subscribe(data => {
-      this.game = data
-      console.log(this.game)
-    })
+    this.store.getGame().subscribe(data => this.game = data)
   }
 }

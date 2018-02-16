@@ -10,19 +10,17 @@ import { Router } from '@angular/router';
 })
 export class GameListItemComponent implements OnInit {
 
-  @Input() game: object;
+  @Input() game: any;
 
   constructor(
-    private store:GameStore,
+    private store: GameStore,
     private router: Router
-  ) {
-    this.store.game.next('')
-  }
+  ) { }
 
   ngOnInit() { }
 
   selectGame() {
-    this.store.game.next(this.game);
+    this.store.setGame(this.game);
     this.router.navigate([`/game/${this.game.id}`]);
   }
 }
