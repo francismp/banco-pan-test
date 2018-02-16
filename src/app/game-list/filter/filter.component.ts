@@ -8,10 +8,7 @@ import { SearchService } from "../../search.service";
 })
 export class FilterComponent implements OnInit {
 
-  public filters;
-
   constructor(public service:SearchService) {
-    this.service.filters.subscribe(filters => this.filters = filters);
   }
 
   ngOnInit() {

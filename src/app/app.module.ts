@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 
 import { SearchService } from './search.service';
 
+import { SearchPipe } from "./pipes/search.pipe";
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { SearchService } from './search.service';
     GameDetailComponent,
     HeaderComponent,
     SearchInputComponent,
-    FilterComponent
+    FilterComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

@@ -22,20 +22,6 @@ export class SearchService {
   private total$ = new BehaviorSubject<number>(0);
   total = this.total$.asObservable();
 
-  private filters$ = new BehaviorSubject<Object>({
-    term: "",
-    offset: 0,
-    limit: 10
-  });
-  filters = this.filters$.asObservable();
-
-  updateFilters(filters:Object) {
-    if(!filters['offset']) filters['offset'] = 0;
-    if(!filters['limit']) filters['limit'] = 10;
-    if(!filters['term']) filters['term'] = '';
-    this.filters$.next(filters);
-  }
-
   getTopGames(limit: number, offset: number): Observable<object> {
     let params = new HttpParams();
     params.append('limit', limit.toString());
@@ -45,7 +31,16 @@ export class SearchService {
         'headers': { 'Client-ID': environment.twitchClientId },
         'params': params
       }).map(
-        res => res['top'],
+        res => res['top'].map(item => {
+          return {
+            id: item.game._id,
+            name: item.game.name,
+            channels: item.channels,
+            viewers: item.viewers,
+            popularity: item.game.popularity,
+            image: item.game.box.large
+          }
+        }),
         msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
       );
   }

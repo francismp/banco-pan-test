@@ -22,4 +22,11 @@ export class GameListComponent implements OnInit {
     this.games = this.service.getTopGames(this.offset, this.limit)
   }
 
+  sortBy(option: string) {
+    if (option == 'popularity') {
+      this.games = this.games.map(games => games.sort((a, b) => b.popularity > a.popularity))
+    } else if (option == 'viewers') {
+      this.games = this.games.map(games => games.sort((a, b) => b.viewers > a.viewers))
+    }
+  }
 }

@@ -1,9 +1,11 @@
 <div class="col mb-3">
   <div class="card mx-auto" style="width: 18rem;">
-    <img class="card-img-top" src="{{game.game.box.large}}" alt="Card image cap">
+      <a href="/game/{{game.id}}">
+        <img class="card-img-top" src="{{game.image}}" alt="Card image cap">
+      </a>
     <div class="card-body">
-      <h5 class="card-title">{{game.game.localized_name}}</h5>
-      <a href="/game/{{game.game._id}}" class="btn btn-primary">Details</a>
+      <h5 class="card-title">{{game.name}}</h5>
+      <a href="/game/{{game.id}}" class="btn btn-primary">Details</a>
     </div>
   </div>
 </div>

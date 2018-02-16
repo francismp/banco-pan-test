@@ -1,8 +1,18 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 mb-3">
-      <app-filter></app-filter>
+      <form class="form-inline my-2 my-lg-0">
+        <label class="ml-3 mr-2" for="search">Search</label>
+        <input id="search" name="search" [(ngModel)]="query" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+
+        <label class="ml-3 mr-2" for="sort">Sort by</label>
+        <select id="sort" name="sort" (change)="sortBy($event.target.value)" class="form-control" id="exampleFormControlSelect1">
+          <option selected value="">Select</option>
+          <option value="viewers">Viewers</option>
+          <option value="popularity">Popularity</option>
+        </select>
+      </form>
     </div>
-    <game-item class="mx-auto" [game]="game" *ngFor="let game of games | async"></game-item>
+    <game-item class="mx-auto" [game]="game" *ngFor="let game of (games | async) | search:'name':query"></game-item>
   </div>
 </div>
