@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../search.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Game } from '../models/game'
 
 @Component({
   selector: 'game-list',
@@ -12,7 +13,8 @@ export class GameListComponent implements OnInit {
 
   private offset: number = 0;
   private limit: number = 100;
-  private games: Observable<object>;
+  private games: Game[] = [];
+  private loading: boolean = true;
 
   constructor(
     public service:SearchService,
@@ -20,14 +22,31 @@ export class GameListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.games = this.service.getTopGames(this.offset, this.limit)
+    this.service.games.subscribe(games => this.games = games)
+
+    if (!this.games.length) this.topGames()
+  }
+
+  topGames() {
+    this.service.getTopGames(this.limit, this.offset).subscribe(games => {
+      this.loading = false;
+      this.games = games
+    })
+  }
+
+  search(term) {
+    if(!term) return this.topGames()
+    
+    this.loading = true;
+    this.service.getGamesByTerm(term).subscribe(games => {
+      this.loading = false;
+      this.games = games;
+    })
   }
 
   sortBy(option: string) {
-    if (option == 'popularity') {
-      this.games = this.games.map(games => games.sort((a, b) => b.popularity > a.popularity))
-    } else if (option == 'viewers') {
-      this.games = this.games.map(games => games.sort((a, b) => b.viewers > a.viewers))
-    }
+    if (!this.games) return false
+
+    this.games = this.games.sort((a, b) => b[option] - a[option])
   }
 }

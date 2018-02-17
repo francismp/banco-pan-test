@@ -14,36 +14,67 @@ import { Game } from "./models/game";
 @Injectable()
 export class SearchService {
 
-  private baseUrl: string = 'https://api.twitch.tv/kraken/games/top';
+  private baseUrl: string = 'https://api.twitch.tv/kraken/';
 
-  private games$ = new BehaviorSubject<Array<any>>([]);
+  private games$ = new BehaviorSubject<Game[]>([]);
   games = this.games$.asObservable();
 
   private total$ = new BehaviorSubject<number>(0);
   total = this.total$.asObservable();
 
-  getTopGames(limit: number, offset: number): Observable<object> {
-    let params = new HttpParams();
-    params.append('limit', limit.toString());
-    params.append('offset', offset.toString());
+  constructor(private http: HttpClient) {}
 
-    return this.http.get(this.baseUrl, {
-        'headers': { 'Client-ID': environment.twitchClientId },
-        'params': params
-      }).map(
-        res => res['top'].map(item => {
-          return {
-            id: item.game._id,
-            name: item.game.name,
-            channels: item.channels,
-            viewers: item.viewers,
-            popularity: item.game.popularity,
-            image: item.game.box.large
-          }
-        }),
+  getTopGames(limit: number, offset: number): Observable<Game[]> {
+    let params = new HttpParams({ fromObject: { limit: limit.toString(), offset: offset.toString() } });
+
+    return this.get('games/top', params).map(
+        res => {
+          this.clearGamesList()
+          let data = res['top'].map(this.format)
+          this.games$.next(this.games$.getValue().concat(data));
+          return data
+        },
         msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
       );
   }
 
-  constructor(private http: HttpClient) {}
+  getGamesByTerm(term:string) {
+    let params = new HttpParams({ fromObject: { query: term, type: 'suggest' } });
+    return this.get('search/games', params).map(
+        res => {
+          this.clearGamesList()
+          let data = res['games'].map(this.format)
+          this.games$.next(this.games$.getValue().concat(data));
+          return data
+        },
+        msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
+      );
+  }
+
+  clearGamesList() {
+    this.games$.next([])
+  }
+
+  private get(path:string, params: HttpParams) {
+    return this.http.get(this.baseUrl+path, {
+      'headers': { 'Client-ID': environment.twitchClientId },
+      'params': params
+    });
+  }
+
+  private format(game) {
+    if (!game.game) game = { game };
+
+    game = {
+      id: game.game._id,
+      name: game.game.name,
+      channels: game.channels,
+      viewers: game.viewers,
+      popularity: game.game.popularity,
+      image: game.game.box.large
+    };
+
+    return game;
+  }
+
 }

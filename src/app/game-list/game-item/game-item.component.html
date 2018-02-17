@@ -1,11 +1,10 @@
 <div class="col mb-3">
-  <div class="card mx-auto" style="width: 18rem;">
-      <a (click)="selectGame()">
-        <img class="card-img-top" src="{{game.image}}" alt="Card image cap">
-      </a>
-    <div class="card-body">
-      <h5 class="card-title">{{game.name}}</h5>
-      <a (click)="selectGame()" class="btn btn-primary">Details</a>
+  <a [routerLink]="['/game', game.id]">
+    <div class="card mx-auto" style="width: 18rem;">
+      <img class="card-img-top" src="{{game.image}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{game.name}}</h5>
+      </div>
     </div>
-  </div>
+  </a>
 </div>

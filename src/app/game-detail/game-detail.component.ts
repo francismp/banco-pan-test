@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { GameStore } from "../store/game-store";
+import { ActivatedRoute, Router } from '@angular/router'
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'game-detail',
@@ -11,9 +11,23 @@ export class GameDetailComponent implements OnInit {
 
   public game: any;
 
-  constructor(private store: GameStore) {}
-  
+  constructor (
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: SearchService
+  ) {}
+    
   ngOnInit() {
-    this.store.getGame().subscribe(data => this.game = data)
+    this.route.params.subscribe( params => {
+      this.service.games.subscribe(games => {
+        if (!games.length) this.goHome()
+
+        this.game = games.find(g => g['id'] === parseInt(params['id']))
+      })
+    })
+  }
+
+  goHome () {
+    this.router.navigateByUrl('/')
   }
 }

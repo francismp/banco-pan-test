@@ -12,7 +12,6 @@ import { GameListItemComponent } from './game-list/game-item/game-item.component
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { HeaderComponent } from './header/header.component';
 import { FilterComponent } from './game-list/filter/filter.component';
-import { SearchInputComponent } from './header/search-input/search-input.component';
 import { FormsModule } from '@angular/forms';
 
 import { GameStore } from './store/game-store';
@@ -44,7 +43,6 @@ const appRoutes: Routes = [
     GameListItemComponent,
     GameDetailComponent,
     HeaderComponent,
-    SearchInputComponent,
     FilterComponent,
     SearchPipe
   ],

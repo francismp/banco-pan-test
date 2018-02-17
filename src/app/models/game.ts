@@ -1,3 +1,8 @@
-export class Game {
-  constructor(public game: any) {}
+export interface Game {
+  id: number,
+  name: string,
+  image: string,
+  viewers: number,
+  popularity: number,
+  channels: number
 }
