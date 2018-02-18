@@ -29,9 +29,9 @@ export class GamesService {
 
     return this.get('games/top', params).map(
         res => {
-          let data = res['top'].map(this.format)
+          let data = res['top'].map(this.format);
           this.games$.next(this.games$.getValue().concat(data));
-          return data
+          return data;
         },
         msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
       );
@@ -41,17 +41,17 @@ export class GamesService {
     let params = new HttpParams({ fromObject: { query: term, type: 'suggest' } });
     return this.get('search/games', params).map(
         res => {
-          this.clearGamesList()
-          let data = res['games'].map(this.format)
+          this.clearGamesList();
+          let data = res['games'].map(this.format);
           this.games$.next(this.games$.getValue().concat(data));
-          return data
+          return data;
         },
         msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
       );
   }
 
   clearGamesList() {
-    this.games$.next([])
+    this.games$.next([]);
   }
 
   private get(path:string, params: HttpParams) {

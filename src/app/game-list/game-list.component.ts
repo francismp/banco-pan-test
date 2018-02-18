@@ -22,15 +22,15 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
     if (width <= 480) {
       this.limit = 25;
     } else if (width <= 1024) {
-      this.limit = 50
+      this.limit = 50;
     }
   }
 
   ngOnInit() {
     this.service.games.subscribe(games => this.games = games)
 
-    if (!this.games.length) this.topGames()
-    else this.loading = false
+    if (!this.games.length) this.topGames();
+    else this.loading = false;
   }
 
   ngAfterViewInit() {
@@ -42,7 +42,7 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onScroll() {
-    let offsetHeight = document.body.offsetHeight - window.innerHeight
+    let offsetHeight = document.body.offsetHeight - window.innerHeight;
 
     if ((window.pageYOffset / offsetHeight) > 0.9 && !this.loading) {
         this.loading = true;
@@ -53,13 +53,14 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   topGames() {
     this.service.getTopGames(this.limit, this.offset).subscribe(games => {
-      this.games.concat(games)
+      this.games.concat(games);
       this.loading = false;
     })
   }
 
   search(term) {
     this.loading = true;
+
     if(!term) {
       this.games = [];
       this.service.clearGamesList();
@@ -73,8 +74,8 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sortBy(option: string) {
-    if (!this.games) return false
+    if (!this.games) return false;
 
-    this.games = this.games.sort((a, b) => b[option] - a[option])
+    this.games = this.games.sort((a, b) => b[option] - a[option]);
   }
 }

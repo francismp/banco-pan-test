@@ -18,8 +18,6 @@ import { FormsModule } from '@angular/forms';
 import { GamesService } from './services/games.service';
 import { StreamService } from './services/streams.service';
 
-import { SearchPipe } from './pipes/search.pipe';
-
 
 const appRoutes: Routes = [
   {
@@ -45,8 +43,7 @@ const appRoutes: Routes = [
     GameDetailComponent,
     StreamerComponent,
     HeaderComponent,
-    LoaderComponent,
-    SearchPipe
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

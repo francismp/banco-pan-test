@@ -19,23 +19,22 @@ export class GameDetailComponent implements OnInit {
     private gameService: GamesService,
     private streamService: StreamService
   ) {}
-    
+
   ngOnInit() {
     this.route.params.subscribe( params => {
       this.gameService.games.subscribe(games => {
-        if (!games.length) this.goHome()
+        if (!games.length) this.goHome();
 
-        this.game = games.find(g => g['id'] === parseInt(params['id']))
+        this.game = games.find(g => g['id'] === parseInt(params['id']));
 
-        this.streamService.getStreamsByGame(this.game.name).subscribe(streamers => {
+        this.streamService.getStreamsByGame(this.game.name).subscribe(streamers =>
           this.streamers = streamers
-          console.log(streamers)
-        })
+        );
       })
     })
   }
 
   goHome () {
-    this.router.navigateByUrl('/')
+    this.router.navigateByUrl('/');
   }
 }

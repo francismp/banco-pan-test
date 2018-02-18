@@ -19,11 +19,7 @@ export class StreamService {
 
   getStreamsByGame(game: string): Observable<Object> {
     return this.get('streams', new HttpParams({ fromObject: { game: game, limit: '10' } })).map(
-      res => {
-        let data = res['streams'].map(this.format)
-
-        return data
-      },
+      res => res['streams'].map(this.format),
       msg => console.error(`Error: ${msg.status} ${msg.statusText}`)
     );
   }
@@ -36,7 +32,6 @@ export class StreamService {
   }
 
   private format(stream) {
-    console.log(stream);
     stream = {
       id: stream._id,
       name: stream.channel.display_name,
