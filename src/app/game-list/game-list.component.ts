@@ -42,10 +42,9 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onScroll() {
-    let wh = window.innerHeight
-      , vwh = document.body.offsetHeight - wh
+    let offsetHeight = document.body.offsetHeight - window.innerHeight
 
-    if ((window.pageYOffset / vwh) > 0.9 && !this.loading) {
+    if ((window.pageYOffset / offsetHeight) > 0.9 && !this.loading) {
         this.loading = true;
         this.offset = this.games.length;
         this.topGames();
