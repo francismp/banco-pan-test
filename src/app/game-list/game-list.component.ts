@@ -13,8 +13,9 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private offset: number = 0;
   private limit: number = 100;
-  private games: Game[] = [];
-  private loading: boolean = true;
+  public games: Game[] = [];
+  public loading: boolean = true;
+  public query: string = '';
 
   constructor(public service:GamesService, private router: Router) {
     let width = window.innerWidth;
