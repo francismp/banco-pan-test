@@ -7,14 +7,18 @@
   background-size: cover;
   width: 15rem;
   height: 22rem;
+  transition: opacity .38s ease-in-out, transform .15s ease-in-out;
+
+  &:hover {
+    transform: scale3d(1.02, 1.02, 1.02);
+  }
 
   .card-body {
     padding: 0;
-    opacity: 0;
+    opacity: 1;
     
     &:hover {
       opacity: 1;
-      transition: opacity .38s ease-in-out, transform .35s ease-in-out;
     }
 
     @media screen and (max-width: 768px) {
@@ -28,7 +32,8 @@
       padding: 10px;
       min-height: 68px;
       margin: 0;
-      bottom: 2px;
+      // bottom: 2px;
+      bottom: 0;
       width: 100%;
       background-color: rgba(0,0,0,0.65);
 
@@ -56,6 +61,7 @@
     transform-origin: left top;
     border-top: 2px solid white;
     border-bottom: 2px solid white;
+    z-index: 10;
   }
 
   &::after {
