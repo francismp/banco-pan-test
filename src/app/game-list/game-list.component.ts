@@ -16,10 +16,15 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
   private games: Game[] = [];
   private loading: boolean = true;
 
-  constructor(
-    public service:GamesService,
-    private router: Router
-  ) { }
+  constructor(public service:GamesService, private router: Router) {
+    let width = window.innerWidth;
+
+    if (width <= 480) {
+      this.limit = 25;
+    } else if (width <= 1024) {
+      this.limit = 50
+    }
+  }
 
   ngOnInit() {
     this.service.games.subscribe(games => this.games = games)
@@ -37,15 +42,14 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onScroll() {
-    const windowHeight = window.innerHeight
-      , viewportHeight = (document.body.offsetHeight - windowHeight)
-      , percentage = (window.pageYOffset / viewportHeight)
-        
-        if (percentage > 0.95 && !this.loading) {
-            this.loading = true;
-            this.offset = this.games.length;
-            this.topGames();
-        }
+    let wh = window.innerHeight
+      , vwh = document.body.offsetHeight - wh
+
+    if ((window.pageYOffset / vwh) > 0.9 && !this.loading) {
+        this.loading = true;
+        this.offset = this.games.length;
+        this.topGames();
+    }
   }
 
   topGames() {
