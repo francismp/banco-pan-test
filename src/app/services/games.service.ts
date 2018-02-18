@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -9,10 +9,10 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
 import { filter } from 'rxjs/operators/filter';
-import { Game } from "./models/game";
+import { Game } from "../models/game";
 
 @Injectable()
-export class SearchService {
+export class GamesService {
 
   private baseUrl: string = 'https://api.twitch.tv/kraken/';
 

@@ -10,11 +10,13 @@ import { AppComponent } from './app.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { GameListItemComponent } from './game-list/game-item/game-item.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
+import { StreamerComponent } from './game-detail/streamer/streamer.component';
 import { HeaderComponent } from './header/header.component';
 import { LoaderComponent } from './game-list/loader/loader.component';
 import { FormsModule } from '@angular/forms';
 
-import { SearchService } from './search.service';
+import { GamesService } from './services/games.service';
+import { StreamService } from './services/streams.service';
 
 import { SearchPipe } from './pipes/search.pipe';
 
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
     GameListComponent,
     GameListItemComponent,
     GameDetailComponent,
+    StreamerComponent,
     HeaderComponent,
     LoaderComponent,
     SearchPipe
@@ -51,7 +54,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ SearchService, Subject ],
+  providers: [ GamesService, StreamService, Subject ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

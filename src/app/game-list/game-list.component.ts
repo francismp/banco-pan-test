@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { SearchService } from '../search.service';
+import { GamesService } from '../services/games.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Game } from '../models/game'
@@ -17,7 +17,7 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
   private loading: boolean = true;
 
   constructor(
-    public service:SearchService,
+    public service:GamesService,
     private router: Router
   ) { }
 
@@ -57,7 +57,11 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   search(term) {
     this.loading = true;
-    if(!term) return this.topGames()
+    if(!term) {
+      this.games = [];
+      this.service.clearGamesList();
+      return this.topGames();
+    }
     
     this.service.getGamesByTerm(term).subscribe(games => {
       this.games = games;

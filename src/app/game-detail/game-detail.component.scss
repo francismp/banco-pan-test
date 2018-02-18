@@ -1,1 +1,51 @@
+.game-details {
+  color: white;
 
+  &__button {
+    border: white 1px solid;
+    background-color: transparent;
+    color: white;
+  }
+
+  &__image {
+    max-width: 450px;
+    margin: 0 auto;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &__description {
+    h2 {
+      margin-bottom: 25px;
+      @media screen and (max-width: 768px) {
+        text-align: center;
+        margin-top: 15px;
+      }
+    }
+    p {
+      margin-bottom: 5px;
+    }
+  }
+
+  .streamers {
+    margin-top: 10px;
+
+    &__tile {
+      font-size: 1.55rem;
+    }
+
+    &__box {
+      padding-top: 16px;
+      max-height: 350px;
+      overflow: auto;
+      border: 1px solid white;
+
+      @media screen and (max-width: 768px) {
+        max-height: none;
+        border: none;
+      }
+    }
+  }
+}

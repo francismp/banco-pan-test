@@ -1,8 +1,21 @@
-<div class="col mb-3">
-  <div class="card mx-auto" style="width: 18rem;">
-    <img class="card-img-top" src="{{ game.image }}" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{ game.name }}</h5>
+<div class="container game-details">
+  <button type="button" class="btn mb-2 game-details__button" (click)="goHome()">< Back</button>
+  <div class="row">
+    <div class="col-sm-6 game-details__image">
+        <img src="{{ game.image }}" alt="Card image cap">
+    </div>
+    <div class="col-sm-6 game-details__description">
+      <h2>{{ game.name }}</h2>
+      <p>Viewers: {{ game.viewers }}</p>
+      <p>Popularity: {{ game.popularity }}</p>
+      <p>Channels: {{ game.channels }}</p>
+
+      <div class="streamers">
+        <h3 class="streamers__title">Top Streamers</h3>
+        <div class="streamers__box">
+          <streamer [streamer]="streamer" *ngFor="let streamer of streamers"></streamer>
+        </div>
+      </div>
     </div>
   </div>
 </div>

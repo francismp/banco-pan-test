@@ -1,0 +1,15 @@
+<a target="_blank" [href]="[streamer.url]">
+  <div class="col-sm-12 mb-3 stream">
+    <div class="stream__image">
+      <img src="{{ streamer.image }}" alt="">
+    </div>
+    <div class="stream__details">
+      <p class="stream__details-title">{{streamer.name}}</p>
+      <div class="stream__details-general_info">
+        <p class="status">{{streamer.details}}</p>
+        <p>Followers: {{streamer.followers}}</p>
+        <p>Viewers: {{streamer.viewers}}</p>
+      </div>
+    </div>
+  </div>
+</a>
