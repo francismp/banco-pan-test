@@ -1,0 +1,24 @@
+.form-inline {
+  label {
+    color: white;
+  }
+
+  input {
+    color: white;
+    background-color: transparent;
+    border-color: white;
+    border-radius: 0;
+
+    &::placeholder {
+      color: white;
+    }
+  }
+
+  select {
+    color: white;
+    background-color: transparent;
+    border-color: white;
+    border-radius: 0;
+    appearance: none;
+  }
+}

@@ -1,3 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~bootstrap/dist/css/bootstrap.min.css'
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+body {
+  background: linear-gradient(92deg, #191919 0%, #0d153c 51%, #101010 75%);
+  font-family: Lato, Helvetica, Arial, sans-serif;
+  padding-top: 72px;
+}

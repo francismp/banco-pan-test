@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { SearchService } from '../search.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { Game } from '../models/game'
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.scss']
 })
-export class GameListComponent implements OnInit {
+export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private offset: number = 0;
   private limit: number = 100;
@@ -25,22 +25,43 @@ export class GameListComponent implements OnInit {
     this.service.games.subscribe(games => this.games = games)
 
     if (!this.games.length) this.topGames()
+    else this.loading = false
+  }
+
+  ngAfterViewInit() {
+    window.addEventListener('scroll', this.onScroll.bind(this));
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.onScroll.bind(this));
+  }
+
+  onScroll() {
+    const windowHeight = window.innerHeight
+      , viewportHeight = (document.body.offsetHeight - windowHeight)
+      , percentage = (window.pageYOffset / viewportHeight)
+        
+        if (percentage > 0.95 && !this.loading) {
+            this.loading = true;
+            this.offset = this.games.length;
+            this.topGames();
+        }
   }
 
   topGames() {
     this.service.getTopGames(this.limit, this.offset).subscribe(games => {
+      this.games.concat(games)
       this.loading = false;
-      this.games = games
     })
   }
 
   search(term) {
+    this.loading = true;
     if(!term) return this.topGames()
     
-    this.loading = true;
     this.service.getGamesByTerm(term).subscribe(games => {
-      this.loading = false;
       this.games = games;
+      this.loading = false;
     })
   }
 

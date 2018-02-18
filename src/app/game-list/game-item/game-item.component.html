@@ -1,7 +1,6 @@
 <div class="col mb-3">
   <a [routerLink]="['/game', game.id]">
-    <div class="card mx-auto" style="width: 18rem;">
-      <img class="card-img-top" src="{{game.image}}" alt="Card image cap">
+    <div class="card mx-auto" [ngStyle]="{'background-image': 'url(' + game.image + ')'}">
       <div class="card-body">
         <h5 class="card-title">{{game.name}}</h5>
       </div>

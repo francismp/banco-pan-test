@@ -1,0 +1,15 @@
+.navbar {
+  background-color: rgba(23, 23, 23, 0.5);
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  height: 62px;
+  top: 0;
+
+  .navbar-brand {
+    color: white;
+    margin: 0 auto;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+  }
+}

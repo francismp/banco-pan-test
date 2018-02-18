@@ -29,7 +29,6 @@ export class SearchService {
 
     return this.get('games/top', params).map(
         res => {
-          this.clearGamesList()
           let data = res['top'].map(this.format)
           this.games$.next(this.games$.getValue().concat(data));
           return data
