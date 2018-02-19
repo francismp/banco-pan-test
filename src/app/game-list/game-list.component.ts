@@ -16,6 +16,7 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
   public games: Game[] = [];
   public loading: boolean = true;
   public query: string = '';
+  public searching: boolean = false;
 
   constructor(public service:GamesService, private router: Router) {
     let width = window.innerWidth;
@@ -45,7 +46,7 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
   onScroll() {
     let offsetHeight = document.body.offsetHeight - window.innerHeight;
 
-    if ((window.pageYOffset / offsetHeight) > 0.9 && !this.loading) {
+    if ((window.pageYOffset / offsetHeight) > 0.9 && !this.loading && !this.searching) {
         this.loading = true;
         this.offset = this.games.length;
         this.topGames();
@@ -61,9 +62,10 @@ export class GameListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   search(term) {
     this.loading = true;
+    this.searching = true;
 
     if(!term) {
-      this.games = [];
+      this.searching = false;
       this.service.clearGamesList();
       return this.topGames();
     }

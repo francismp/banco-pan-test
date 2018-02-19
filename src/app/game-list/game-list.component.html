@@ -14,7 +14,6 @@
       </form>
     </div>
     <game-item class="mx-auto" [game]="game" *ngFor="let game of games"></game-item>
-    <span class="no-games" [hidden]="!games">No games found.</span>
   </div>
 </div>
 <loader [hidden]="!loading"></loader>

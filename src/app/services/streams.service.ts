@@ -32,7 +32,7 @@ export class StreamService {
   }
 
   private format(stream) {
-    stream = {
+    return {
       id: stream._id,
       name: stream.channel.display_name,
       followers: stream.channel.followers,
@@ -41,8 +41,6 @@ export class StreamService {
       image: stream.preview.large,
       url: stream.channel.url
     };
-
-    return stream;
   }
 
 }
